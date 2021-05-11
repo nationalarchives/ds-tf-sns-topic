@@ -1,8 +1,12 @@
 data "aws_caller_identity" "current" {}
 
+resource "aws_kms_key" "sns" {
+  description             = "SNS Admin Topic Key"
+}
+
 resource "aws_sns_topic" "this" {
     name              = var.name
-    kms_master_key_id = var.kms_master_key_id
+    kms_master_key_id = aws_kms_key.sns.id
     delivery_policy   = var.delivery_policy
     tags = {
         Name            = "${var.service}-sns-topic-${var.environment}"
