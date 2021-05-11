@@ -19,23 +19,54 @@ variable "allowed_aws_services_for_sns_published" {
   default     = ["cloudwatch.amazonaws.com"]
 }
 
-variable "kms_master_key_id" {
+variable "name" {
   type        = string
-  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK"
-  default     = "alias/aws/sns"
+  description = "The name of the SNS topic"
 }
 
-variable "sqs_queue_kms_master_key_id" {
+variable "service" {
   type        = string
-  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SQS Queue or a custom CMK"
-  default     = "alias/aws/sqs"
+  description = "The service this resource is associated with"
 }
 
-variable "sqs_queue_kms_data_key_reuse_period_seconds" {
-  type        = number
-  description = "The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again"
-  default     = 300
+variable "environment" {
+  type        = string
+  description = "The environment this resource is associated with ('dev', 'test', 'live')"
 }
+
+variable "cost_centre" {
+  type        = string
+  description = "The cost centre to which billing should be directed"
+  default     = "57"
+}
+
+variable "owner" {
+  type        = string
+  description = ""
+}
+
+variable "created_by" {
+  type        = string
+  description = ""
+}
+
+//variable "kms_master_key_id" {
+//  type        = string
+//  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK"
+//  default     = "alias/aws/sns"
+//}
+//
+//variable "sqs_queue_kms_master_key_id" {
+//  type        = string
+//  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SQS Queue or a custom CMK"
+//  default     = "alias/aws/sqs"
+//}
+//
+//variable "sqs_queue_kms_data_key_reuse_period_seconds" {
+//  type        = number
+//  description = "The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again"
+//  default     = 300
+//}
 
 variable "allowed_iam_arns_for_sns_publish" {
   type        = list(string)
@@ -51,22 +82,22 @@ variable "sns_topic_policy_json" {
 
 # Enabling sqs_dlq_enabled won't be effective.
 # SNS subscription - redrive policy parameter is not yet avaialable in TF - waiting for PR https://github.com/terraform-providers/terraform-provider-aws/issues/10931
-variable "sqs_dlq_enabled" {
-  type        = bool
-  description = "Enable delivery of failed notifications to SQS and monitor messages in queue."
-  default     = false
-}
-
-variable "sqs_dlq_max_message_size" {
-  type        = number
-  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB). The default for this attribute is 262144 (256 KiB)."
-  default     = 262144
-}
-variable "sqs_dlq_message_retention_seconds" {
-  type        = number
-  description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)."
-  default     = 1209600
-}
+//variable "sqs_dlq_enabled" {
+//  type        = bool
+//  description = "Enable delivery of failed notifications to SQS and monitor messages in queue."
+//  default     = false
+//}
+//
+//variable "sqs_dlq_max_message_size" {
+//  type        = number
+//  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB). The default for this attribute is 262144 (256 KiB)."
+//  default     = 262144
+//}
+//variable "sqs_dlq_message_retention_seconds" {
+//  type        = number
+//  description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)."
+//  default     = 1209600
+//}
 
 variable "delivery_policy" {
   type        = string

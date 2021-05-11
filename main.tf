@@ -1,11 +1,18 @@
 data "aws_caller_identity" "current" {}
 
 resource "aws_sns_topic" "this" {
-  name              = module.this.id
-  display_name      = module.this.id
-  kms_master_key_id = var.kms_master_key_id
-  delivery_policy   = var.delivery_policy
-  tags              = module.this.tags
+    name              = var.name
+    kms_master_key_id = var.kms_master_key_id
+    delivery_policy   = var.delivery_policy
+    tags = {
+        Name            = "${var.service}-sns-topic-${var.environment}"
+        Service         = var.service
+        Environment     = var.environment
+        CostCentre      = var.cost_centre
+        Owner           = var.owner
+        CreatedBy       = var.created_by
+        Terraform       = true
+    }
 }
 
 resource "aws_sns_topic_subscription" "this" {
