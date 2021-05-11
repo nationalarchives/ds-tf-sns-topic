@@ -61,16 +61,16 @@ data "aws_iam_policy_document" "aws_sns_topic_policy" {
 
 
 # TODO enable when PR gets merged https://github.com/terraform-providers/terraform-provider-aws/issues/10931
-resource "aws_sqs_queue" "dead_letter_queue" {
-  count = var.sqs_dlq_enabled ? 1 : 0
-
-  name                              = module.this.id
-  max_message_size                  = var.sqs_dlq_max_message_size
-  message_retention_seconds         = var.sqs_dlq_message_retention_seconds
-  kms_master_key_id                 = var.sqs_queue_kms_master_key_id
-  kms_data_key_reuse_period_seconds = var.sqs_queue_kms_data_key_reuse_period_seconds
-  tags                              = module.this.tags
-}
+//resource "aws_sqs_queue" "dead_letter_queue" {
+//  count = var.sqs_dlq_enabled ? 1 : 0
+//
+//  name                              = module.this.id
+//  max_message_size                  = var.sqs_dlq_max_message_size
+//  message_retention_seconds         = var.sqs_dlq_message_retention_seconds
+//  kms_master_key_id                 = var.sqs_queue_kms_master_key_id
+//  kms_data_key_reuse_period_seconds = var.sqs_queue_kms_data_key_reuse_period_seconds
+//  tags                              = module.this.tags
+//}
 
 data "aws_iam_policy_document" "sqs-queue-policy" {
   count = var.sqs_dlq_enabled ? 1 : 0
