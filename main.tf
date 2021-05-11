@@ -72,25 +72,25 @@ data "aws_iam_policy_document" "aws_sns_topic_policy" {
 //  tags                              = module.this.tags
 //}
 
-data "aws_iam_policy_document" "sqs-queue-policy" {
-  count = var.sqs_dlq_enabled ? 1 : 0
-
-  policy_id = "${join("", aws_sqs_queue.dead_letter_queue.*.arn)}/SNSDeadLetterQueue"
-
-  statement {
-    effect    = "Allow"
-    actions   = ["SQS:SendMessage"]
-    resources = [join("", aws_sqs_queue.dead_letter_queue.*.arn)]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    condition {
-      test     = "ArnEquals"
-      variable = "aws:SourceArn"
-      values   = [aws_sns_topic.this.arn]
-    }
-  }
-}
+//data "aws_iam_policy_document" "sqs-queue-policy" {
+//  count = var.sqs_dlq_enabled ? 1 : 0
+//
+//  policy_id = "${join("", aws_sqs_queue.dead_letter_queue.*.arn)}/SNSDeadLetterQueue"
+//
+//  statement {
+//    effect    = "Allow"
+//    actions   = ["SQS:SendMessage"]
+//    resources = [join("", aws_sqs_queue.dead_letter_queue.*.arn)]
+//
+//    principals {
+//      type        = "AWS"
+//      identifiers = ["*"]
+//    }
+//
+//    condition {
+//      test     = "ArnEquals"
+//      variable = "aws:SourceArn"
+//      values   = [aws_sns_topic.this.arn]
+//    }
+//  }
+//}
