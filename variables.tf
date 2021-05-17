@@ -37,7 +37,7 @@ variable "environment" {
 variable "cost_centre" {
   type        = string
   description = "The cost centre to which billing should be directed"
-  default     = "57"
+  default     = "53"
 }
 
 variable "owner" {
